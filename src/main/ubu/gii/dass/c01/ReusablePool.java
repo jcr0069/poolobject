@@ -10,6 +10,7 @@ import java.util.*;
 public final class ReusablePool{
 
 	private Vector<Reusable> reusables;
+	
 	private static ReusablePool instance;
 
 	private ReusablePool(int size){
@@ -60,4 +61,9 @@ public final class ReusablePool{
 			throw(new DuplicatedInstanceException());
 		}
 	}
+	
+	public Vector<Reusable> getReusables() {
+		return reusables;
+	}
+	
 } 
