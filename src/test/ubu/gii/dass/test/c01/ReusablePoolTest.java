@@ -9,10 +9,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-<<<<<<< HEAD
+
 import ubu.gii.dass.c01.DuplicatedInstanceException;
-=======
->>>>>>> origin/master
 import ubu.gii.dass.c01.NotFreeInstanceException;
 import ubu.gii.dass.c01.Reusable;
 import ubu.gii.dass.c01.ReusablePool;
@@ -73,8 +71,6 @@ public class ReusablePoolTest {
 		}catch(NotFreeInstanceException e){
 			assertTrue(true);
 		}
-		
-		
 	}
 
 	/**
@@ -94,10 +90,24 @@ public class ReusablePoolTest {
 		}
 		
 		try {
+			pool1.releaseReusable(r);
+			fail("No deberia dejar liberar el objeto reusable");
+		} catch (DuplicatedInstanceException e) {
+			assertTrue(pool1.getReusables().contains(r));
+		}
+		
+		try {
 			pool1.releaseReusable(r2);
 		} catch (DuplicatedInstanceException e) {
 			e.printStackTrace();
 			fail("Deberia dejar liberar el objeto reusable.");
+		}
+		
+		try {
+			pool1.releaseReusable(r2);
+			fail("No deberia dejar liberar el objeto reusable");
+		} catch (DuplicatedInstanceException e) {
+			assertTrue(pool1.getReusables().contains(r2));
 		}
 		
 	}
