@@ -19,7 +19,6 @@ public class ReusablePoolTest {
 
 	private ReusablePool pool1;
 	private ReusablePool pool2;
-	private ReusablePool pool3;
 	
 	/**
 	 * @throws java.lang.Exception
@@ -28,7 +27,6 @@ public class ReusablePoolTest {
 	public void setUp() throws Exception {
 		pool1 = ReusablePool.getInstance();
 		pool2 = ReusablePool.getInstance();
-		pool3 = ReusablePool.getInstance();
 	}
 
 	/**
@@ -38,7 +36,6 @@ public class ReusablePoolTest {
 	public void tearDown() throws Exception {
 		pool1 = null;
 		pool2 = null;
-		pool3 = null;
 	}
 
 	/**
@@ -46,7 +43,9 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testGetInstance() {
-		fail("Not yet implemented");
+		assertTrue(pool1 instanceof ReusablePool);
+		assertTrue(pool2 instanceof ReusablePool);
+		assertEquals(pool1,pool2);
 	}
 
 	/**
