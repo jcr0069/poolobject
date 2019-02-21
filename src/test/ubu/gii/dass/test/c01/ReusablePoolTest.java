@@ -62,12 +62,12 @@ public class ReusablePoolTest {
 		assertTrue(pool1.acquireReusable() instanceof Reusable);
 		assertTrue(pool1.acquireReusable() instanceof Reusable);
 		}catch(NotFreeInstanceException e){
-			fail();
+			fail("Aun deberia haber reusables libres");
 		}
 		
 		try{
 			pool1.acquireReusable();
-			fail();
+			fail("No deberia haber reusables libres");
 		}catch(NotFreeInstanceException e){
 			assertTrue(true);
 		}
@@ -80,7 +80,9 @@ public class ReusablePoolTest {
 	@Test
 	public void testReleaseReusable() throws NotFreeInstanceException {
 		Reusable r = pool1.acquireReusable();
+		System.out.println(r.util());
 		Reusable r2 = pool1.acquireReusable();
+		System.out.println(r2.util());
 		
 		try {
 			pool1.releaseReusable(r);
