@@ -9,7 +9,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-
 import ubu.gii.dass.c01.DuplicatedInstanceException;
 import ubu.gii.dass.c01.NotFreeInstanceException;
 import ubu.gii.dass.c01.Reusable;
@@ -23,6 +22,7 @@ public class ReusablePoolTest {
 
 	private ReusablePool pool1;
 	private ReusablePool pool2;
+	
 	
 	/**
 	 * @throws java.lang.Exception
@@ -58,9 +58,12 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testAcquireReusable(){
+		Reusable r1 = null, r2 = null;
 		try{
-		assertTrue(pool1.acquireReusable() instanceof Reusable);
-		assertTrue(pool1.acquireReusable() instanceof Reusable);
+			r1 = pool1.acquireReusable();
+			assertTrue(r1 instanceof Reusable);
+			r2 = pool1.acquireReusable();
+			assertTrue(r2 instanceof Reusable);
 		}catch(NotFreeInstanceException e){
 			fail("Aun deberia haber reusables libres");
 		}
@@ -70,6 +73,12 @@ public class ReusablePoolTest {
 			fail("No deberia haber reusables libres");
 		}catch(NotFreeInstanceException e){
 			assertTrue(true);
+			try {
+				pool1.releaseReusable(r1);
+				pool1.releaseReusable(r2);
+			} catch (DuplicatedInstanceException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 
